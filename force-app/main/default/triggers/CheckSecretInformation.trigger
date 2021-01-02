@@ -25,7 +25,7 @@ trigger CheckSecretInformation on Case (after insert, before update) {
     for (Case caseWithKeyword : caseWithSecretInfo) {
         Case childCase         = new Case();
         childCase.Subject      = childCaseSubject;
-        childCase.ParentId     = caseWithSecretInfo.get(0).id;
+        childCase.ParentId     = caseWithSecretInfo.get(0).id; // Id didn't work
         childCase.IsEscalated  = true;
         childCase.Priority     = 'High';
         childCase.Description  = 'Atleast one of the following keywords were found ' + secretKeyWords;
