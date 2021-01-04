@@ -11,12 +11,16 @@ trigger WarrantySummary on Case (before insert) {
         Boolean hasExtendedWarranty = myCase.Product_Has_Extended_Warranty__c;
 
         // Populating the Case Summary field
-        myCase.Warranty_Summary__c  = 'Product purchased on ' + purchaseDate + ' '
-                                    + 'and case is created on ' + createdDate + '.\n' 
-                                    + 'Warranty is for ' + warrantyDays + ' '
-                                    + 'Days and is ' + warrantyPercentage + ' % through it\'s warranty field.\n' 
-                                    + 'Extended Warranty: ' + hasExtendedWarranty + '\n' 
-                                    + 'Have a nice day!';
+
+        // trying to cover null pointer exception
+        if (purchaseDate != null || warrantyDays != null || warrantyPercentage != null || hasExtendedWarranty != null) {
+            myCase.Warranty_Summary__c  = 'Product purchased on ' + purchaseDate + ' '
+            + 'and case is created on ' + createdDate + '.\n' 
+            + 'Warranty is for ' + warrantyDays + ' '
+            + 'Days and is ' + warrantyPercentage + ' % through it\'s warranty field.\n' 
+            + 'Extended Warranty: ' + hasExtendedWarranty + '\n' 
+            + 'Have a nice day!';
+        }
     }
 
     /* Product purcahsed on <<purcahseDate>> and case created on <<createdDate>>,
